@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //arrayOriginal
     const lista1 = document.querySelector('#lista1');
     const lista2 = document.querySelector('#lista2');
-    const fragment = createDocumentFragment();
+    const fragment = document.createDocumentFragment();
 
     const arrayOriginal = [
         { id: 'a-1', producto: 'mesa' },
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const id = target.parentElement.id;
             console.log('anadiendo...', id);
             anadirProductosSeleccionados(id);
-            pintarLista2();
+            pintarLista1();
         }
         if (target.classList.contains('remove')) {
             const id = target.parentElement.id;
@@ -42,16 +42,16 @@ document.addEventListener('DOMContentLoaded', () => {
     //Pintar lista 1, pintana nada mas cargar la pagina
     const pintarLista1 = () => {
         console.log('pintando uno');
-        arrayOriginal.forEach(({ id, producto }) => {
+        arrayOriginal.forEach((item) => {
             const elementoLista = document.createElement('LI');
             elementoLista.id = item.id;
             elementoLista.innerHTML = `${item.producto}<button class="add">anadir</button>`;//innerHTML mejor que textContent dado que innerHTML sustituye el contenido y textContent lo da, innerHTML lo pisa
             //desestructuramos item en id y producto
-
-
             fragment.append(elementoLista);
         })
+    lista1.append(fragment);
     }
+
     //anadir a arrayProductosSeleccionados
     const anadirProductosSeleccionados = (id) => {
         //recorrer el array y recoger si el elemento existe
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pintarLista2 = () => {
         console.log('pintando dos');
         const productos = getLocal();
-        productos.forEach(({ id, producto }) => {
+        productos.forEach((item) => {
             const elementoLista = document.createElement('LI');
             elementoLista.id = item.id;
             elementoLista.innerHTML = `${item.producto}<button class="remove">eliminar</button>`;
@@ -101,8 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const init = () => {
-        pintarLista1;
-        pintarLista2;
+        pintarLista1();
     }
     init()
 
